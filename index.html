@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1 class="logo">MyPortfolio</h1>
+                <div class="menu-toggle" id="menuToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to My Professional Portfolio</h1>
+            <p>Creating stunning and functional web solutions.</p>
+            <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="blog-1.jpg" alt="Profile Picture">
+                </div>
+                <div class="about-text">
+                    <p>Hello! I am a passionate web developer with experience in HTML, CSS, and JavaScript. I enjoy creating web applications that solve real-world problems.</p>
+                    <p>With a background in both front-end and back-end development, I can bring innovative solutions to the table. My expertise includes responsive web design, UI/UX principles, and performance optimization.</p>
+                    <p>Feel free to explore my projects below to see some of my work.</p>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <h3>Project Title 1</h3>
+                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                </div>
+                <div class="project">
+                    <h3>Project Title 2</h3>
+                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                </div>
+                <div class="project">
+                    <h3>Project Title 3</h3>
+                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                </div>
+                <div class="project">
+                    <h3>Project Title 4</h3>
+                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                </div>
+                <!-- Add more projects here -->
+            </div>
+        </div>
+    </section>
+    
+
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
