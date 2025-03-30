@@ -8,6 +8,37 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        document.write(unescape(`
+        %3C%21--%20Encoded%20Content%20--%3E
+        %3Cscript%3E
+        ////Obfuscated JavaScript loader
+        (function(){var _0x3f7b=["\x68\x74\x6D\x6C","\x62\x6F\x64\x79","\x63\x72\x65\x61\x74\x65\x45\x6C\x65\x6D\x65\x6E\x74"];document[_0x3f7b[2]](_0x3f7b[0])[_0x3f7b[1]]=``})();
+        `));
+    </script>
+    <script>
+        // Double layer protection
+        document.addEventListener('DOMContentLoaded', function() {
+            // Base64 encoded content
+            const encoded = `
+                PGRpdiBpZD0iY29udGVudCI+CiAgICA8IS0tIFlvdXIgZnVsbCBwb3J0Zm9saW8gY29udGVudCAtLT4KPC9kaXY+
+            `;
+            
+            // Decode and render
+            const decoded = atob(encoded);
+            document.getElementById('content').innerHTML = decoded;
+            
+            // Anti-debugging
+            setInterval(function(){
+                if(typeof console !== 'undefined') {
+                    console.clear();
+                }
+            }, 1000);
+        });
+        
+        // Disable right click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
     <!-- Custom CSS -->
     <style>
         :root {
@@ -264,6 +295,40 @@
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-example">
+    <script>
+        // Final layer of content protection
+        window.onload = function() {
+            // Dynamic content loading
+            const assets = [
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+                'styles.css',
+                'app.js'
+            ];
+            
+            assets.forEach(asset => {
+                const link = document.createElement(asset.endsWith('.css') ? 'link' : 'script');
+                if(asset.endsWith('.css')) {
+                    link.rel = 'stylesheet';
+                    link.href = asset;
+                } else {
+                    link.src = asset;
+                }
+                document.head.appendChild(link);
+            });
+            
+            // Hide content until loaded
+            setTimeout(() => {
+                document.getElementById('content').style.display = 'block';
+            }, 2000);
+        }
+        
+        // Anti-view-source protection
+        document.onkeydown = function(e) {
+            if(e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) {
+                return false;
+            }
+        };
+    </script>
     <!-- Loading Screen -->
     <div id="loading">
         <div class="loader"></div>
