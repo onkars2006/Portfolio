@@ -3,102 +3,664 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Your - Portfolio</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #2f2e41;
+            --text-color: #444444;
+        }
+/* Loading Screen */
+#loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--primary-color);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hero-section {
+            background: linear-gradient(45deg, #f3f7ff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .skill-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+            border-radius: 15px;
+            transform: scale(0.95);
+            opacity: 0;
+            animation: scaleUp 0.6s ease forwards;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(161, 40, 227, 0.471), rgba(55, 0, 255, 0.384));
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 60px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .btn-custom {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(115, 108, 243, 0.3);
+        }
+        /* Add this new CSS rule */
+        .view-details-btn:hover {
+            background: #000;
+            color: white !important;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: var(--primary-color);
+            color: white !important;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleUp {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .progress-bar {
+            background: var(--primary-color);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .skill-progress {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .navbar-nav {
+            align-items: center;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                padding: 20px 0;
+                background: rgba(255, 255, 255, 0.98);
+                margin-top: 10px;
+            }
+        }
+
+        .project-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .project-image-container {
+                height: 200px;
+            }
+        }
+
+        /* Project Modal Styles */
+        .project-modal .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .project-modal-img {
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-links a:hover {
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">MyPortfolio</h1>
-                <div class="menu-toggle" id="menuToggle">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation -->
+    <nav id="navbar-example" class="navbar navbar-expand-lg fixed-top shadow-sm animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-color);">Your Name</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active" href="#home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#about" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#skills" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Skills</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#portfolio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Portfolio</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#contact" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contact</a>
+                    </li>
                 </ul>
             </div>
-        </nav>
-    </header>
-    
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Welcome to My Professional Portfolio</h1>
-            <p>Creating stunning and functional web solutions.</p>
-            <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 order-md-1 order-2 animate__animated animate__fadeInLeft">
+                    <h4 class="text-muted mb-3">Hello, I'm</h4>
+                    <h1 class="display-4 fw-bold mb-4" style="color: var(--secondary-color);">Your Name</h1>
+                    <p class="lead mb-4">Full Stack Developer & UI/UX Designer</p>
+                    <a href="#contact" class="btn btn-custom">Let's Collaborate</a>
+                </div>
+                <div class="col-md-6 order-md-2 order-1 text-center mb-4 mb-md-0 animate__animated animate__fadeInRight">
+                    <img src="prabhas.jpg" alt="Profile" class="profile-image">
+                </div>
+            </div>
         </div>
     </section>
 
-    
-    <section id="about">
-        <div class="container">
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container animate__animated animate__fadeInUp">
             <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="blog-1.jpg" alt="Profile Picture">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="img01.jpg" alt="About" class="img-fluid rounded-4 shadow">
                 </div>
-                <div class="about-text">
-                    <p>Hello! I am a passionate web developer with experience in HTML, CSS, and JavaScript. I enjoy creating web applications that solve real-world problems.</p>
-                    <p>With a background in both front-end and back-end development, I can bring innovative solutions to the table. My expertise includes responsive web design, UI/UX principles, and performance optimization.</p>
-                    <p>Feel free to explore my projects below to see some of my work.</p>
+                <div class="col-md-6 mt-5 mt-md-0">
+                    <h3 class="mb-4 fw-bold">Turning Ideas Into Digital Reality</h3>
+                    <p class="lead">With 5+ years of experience in web development and design, I create seamless digital experiences that combine technical excellence with creative vision.</p>
+                    <div class="row mt-4">
+                        <div class="col-6 mb-3">
+                            <div class="p-3 text-center bg-light rounded-3">
+                                <h4 class="fw-bold text-primary">25+</h4>
+                                <p class="mb-0">Projects Completed</p>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="p-3 text-center bg-light rounded-3">
+                                <h4 class="fw-bold text-primary">18+</h4>
+                                <p class="mb-0">Happy Clients</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
             </div>
         </div>
     </section>
 
-
-    <section id="projects">
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <div class="project">
-                    <h3>Project Title 1</h3>
-                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="row g-4">
+                <div class="col-md-4 animate__animated" data-animation="animate__fadeInUp">
+                    <div class="skill-card p-4 text-center bg-white shadow">
+                        <i class="fab fa-react fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4>React Development</h4>
+                        <p>Building dynamic and responsive web applications</p>
+                        <div class="skill-progress mt-3">
+                            <div class="progress-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="project">
-                    <h3>Project Title 2</h3>
-                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                <div class="col-md-4">
+                    <div class="skill-card p-4 text-center bg-white shadow">
+                        <i class="fas fa-database fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4>Database Design</h4>
+                        <p>Structured data management solutions</p>
+                        <div class="skill-progress mt-3">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="project">
-                    <h3>Project Title 3</h3>
-                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
+                <div class="col-md-4">
+                    <div class="skill-card p-4 text-center bg-white shadow">
+                        <i class="fas fa-mobile-alt fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4>Mobile Development</h4>
+                        <p>Cross-platform mobile solutions</p>
+                        <div class="skill-progress mt-3">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="project">
-                    <h3>Project Title 4</h3>
-                    <p>Brief description of the project. Technologies used, what the project is about, etc.</p>
-                </div>
-                <!-- Add more projects here -->
             </div>
         </div>
     </section>
-    
 
-
-    <section id="contact">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5">
         <div class="container">
-            <h2 class="section-title">Contact Me</h2>
-            <form id="contactForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+            <h2 class="section-title">Recent Projects</h2>
+            <div class="row g-4">
+                <!-- Project 1 -->
+                <div class="col-md-4 animate__animated" data-animation="animate__flipInX">
+                    <div class="project-card shadow">
+                        <div class="position-relative">
+                            <div class="project-image-container">
+                                <img src="04.jpg" alt="E-Commerce Platform">
+                            </div>
+                            <div class="project-overlay">
+                                <button class="btn btn-custom view-details-btn" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#projectModal"
+                                        data-title="E-Commerce Platform"
+                                        data-desc="A full-stack e-commerce solution with React frontend and Node.js backend. Features include product management, shopping cart, and payment integration."
+                                        data-tech="React,Node.js,MongoDB,Stripe"
+                                        data-image="04.jpg"
+                                        data-github="#"
+                                        data-live="#">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h5>E-Commerce Platform</h5>
+                            <p class="text-muted">React & Node.js</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-md-4 animate__animated" data-animation="animate__flipInX">
+                    <div class="project-card shadow">
+                        <div class="position-relative">
+                            <div class="project-image-container">
+                                <img src="02.jpg" alt="Mobile App UI">
+                            </div>
+                            <div class="project-overlay">
+                                <button class="btn btn-custom view-details-btn" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#projectModal"
+                                        data-title="Mobile App UI"
+                                        data-desc="A cross-platform mobile application built with Flutter and Firebase backend. Features real-time chat and push notifications."
+                                        data-tech="Flutter,Firebase,Dart"
+                                        data-image="02.jpg"
+                                        data-github="#"
+                                        data-live="#">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h5>Mobile App UI</h5>
+                            <p class="text-muted">Flutter & Firebase</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-md-4 animate__animated" data-animation="animate__flipInX">
+                    <div class="project-card shadow">
+                        <div class="position-relative">
+                            <div class="project-image-container">
+                                <img src="03.jpg" alt="Dashboard Analytics">
+                            </div>
+                            <div class="project-overlay">
+                                <button class="btn btn-custom view-details-btn" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#projectModal"
+                                        data-title="Dashboard Analytics"
+                                        data-desc="An interactive data visualization dashboard using React and D3.js. Features real-time updates and custom chart configurations."
+                                        data-tech="React,D3.js,Chart.js"
+                                        data-image="03.jpg"
+                                        data-github="#"
+                                        data-live="#">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h5>Dashboard Analytics</h5>
+                            <p class="text-muted">React & D3.js</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    <!-- Project Modal -->
+    <div class="modal fade project-modal" id="projectModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <button type="button" class="btn-close position-absolute end-0 m-3" data-bs-dismiss="modal"></button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" class="project-modal-img w-100" alt="Project Image" id="modalProjectImage">
+                        </div>
+                        <div class="col-md-6 p-4">
+                            <h3 id="modalProjectTitle" class="mb-3"></h3>
+                            <p id="modalProjectDesc" class="text-muted"></p>
+                            <div class="mb-4" id="modalProjectTech"></div>
+                            <div class="project-links" id="modalProjectLinks"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form id="contactForm" class="bg-white p-4 rounded-3 shadow">
+                        <div class="mb-4">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <div class="social-links mb-4">
+                <a href="#" class="social-link text-white"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link text-white"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link text-white"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link text-white"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="mb-0">&copy; 2023 Alexandra Smith. All rights reserved.</p>
+        </div>
     </footer>
-    
-    <script src="script.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            loading.style.opacity = '0';
+            setTimeout(() => {
+                loading.style.display = 'none';
+            }, 500);
+        });
+
+        // Scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('[data-animation]');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if(elementTop < window.innerHeight && elementBottom > 0) {
+                    const animation = element.getAttribute('data-animation');
+                    element.classList.add(animation);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+        // Smooth scroll with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                
+                window.scrollTo({
+                    top: target.offsetTop - navbarHeight,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Close mobile menu
+        document.addEventListener('click', function(e) {
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            const toggler = document.querySelector('.navbar-toggler');
+            if (!navbarCollapse.contains(e.target)) {
+                if (navbarCollapse.classList.contains('show') && !toggler.contains(e.target)) {
+                    new bootstrap.Collapse(navbarCollapse).hide();
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'success',
+                title: 'Message Sent!',
+                text: 'Thank you for reaching out! I will respond within 24 hours.',
+                confirmButtonColor: 'var(--primary-color)'
+            });
+            this.reset();
+        });
+
+        // Scroll animations
+        window.addEventListener('scroll', function() {
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < window.innerHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Project Modal Handler
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const projectData = {
+                    title: this.dataset.title,
+                    desc: this.dataset.desc,
+                    tech: this.dataset.tech.split(','),
+                    image: this.dataset.image,
+                    github: this.dataset.github,
+                    live: this.dataset.live
+                };
+
+                document.getElementById('modalProjectTitle').textContent = projectData.title;
+                document.getElementById('modalProjectDesc').textContent = projectData.desc;
+                document.getElementById('modalProjectImage').src = projectData.image;
+
+                const techContainer = document.getElementById('modalProjectTech');
+                techContainer.innerHTML = '';
+                projectData.tech.forEach(tech => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tech-tag';
+                    tag.textContent = tech;
+                    techContainer.appendChild(tag);
+                });
+
+                const linksContainer = document.getElementById('modalProjectLinks');
+                linksContainer.innerHTML = '';
+                
+                if(projectData.github) {
+                    const githubLink = document.createElement('a');
+                    githubLink.href = projectData.github;
+                    githubLink.className = 'btn btn-custom me-2 mb-2';
+                    githubLink.target = '_blank';
+                    githubLink.innerHTML = '<i class="fab fa-github me-2"></i>GitHub';
+                    linksContainer.appendChild(githubLink);
+                }
+
+                if(projectData.live) {
+                    const liveLink = document.createElement('a');
+                    liveLink.href = projectData.live;
+                    liveLink.className = 'btn btn-outline-primary';
+                    liveLink.target = '_blank';
+                    liveLink.innerHTML = '<i class="fas fa-external-link-alt me-2"></i>Live Demo';
+                    linksContainer.appendChild(liveLink);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
